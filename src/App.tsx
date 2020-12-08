@@ -1,24 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { ReactElement, useState } from "react";
+import Sender, { SenderProps } from "./components/Sender";
 
 function App() {
+  const [senders, setSenders] = useState<ReactElement<SenderProps>[]>([]);
+  const [name, setName] = useState("");
+
+  const createSender = () => {
+    setName("");
+    setSenders((senders) => [<Sender name={name} />, ...senders]);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className="container mx-auto">
+      <header className="flex flex-col items-center">
+        <h1 className="font-bold">Senders</h1>
+        <div className="flex flex-col w-1/5 my-8 space-y-4">
+          <input
+            className="p-2 border-2"
+            placeholder="name"
+            value={name}
+            onChange={({ target: { value } }) => setName(value)}
+          />
+          <div
+            className="border flex items-center justify-center"
+            onClick={createSender}
+          >
+            Create
+          </div>
+        </div>
       </header>
+      <div className="flex flex-row flex-wrap space-x-8">
+        {senders.map((sender) => sender)}
+      </div>
     </div>
   );
 }
