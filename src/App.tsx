@@ -20,6 +20,11 @@ function App() {
             placeholder="name"
             value={name}
             onChange={({ target: { value } }) => setName(value)}
+            onKeyPress={({ key }) => {
+              if (key === "Enter") {
+                createSender();
+              }
+            }}
           />
           <div
             className="border flex items-center justify-center"
@@ -29,7 +34,7 @@ function App() {
           </div>
         </div>
       </header>
-      <div className="flex flex-row flex-wrap space-x-8">
+      <div className="flex flex-row flex-wrap w-full space-x-8">
         {senders.map((sender) => sender)}
       </div>
     </div>
